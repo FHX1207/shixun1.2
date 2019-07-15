@@ -25,5 +25,5 @@ export function condition(params){
 }
 //更新试题
 export function update(params){
-    return request.put("/exam/questions/update",params)
+    return request.put("/exam/questions/updata",params)
 }

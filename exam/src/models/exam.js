@@ -1,6 +1,7 @@
 import {exam,examType,subject,getQuestionsType,condition,update} from '../services/index'
 import {getToken} from "../utils/index"
 import {routerRedux} from "dva/router"
+
 export default {
   // 命名空间
   namespace: 'exam',
@@ -84,7 +85,7 @@ export default {
       console.log(list)
       yield put({
         type:"setupdate",
-        payload:list.data
+        payload:list
       })
     }
   },

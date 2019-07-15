@@ -2,14 +2,15 @@ import React, { useEffect, useState } from 'react'
 import {connect} from 'dva'
 import Editor from 'for-editor'
 import "../css/addQuestion.css"
-import { Input ,Form, Button,Select,Modal} from 'antd';
+import { Input ,Form, Button,Select,Modal,message} from 'antd';
 
 const { Option} = Select;
 function AddQuestion(props) {
     let {examtype,subject,questions,exam,msgupdate}=props;
-    console.log(msgupdate)
+     console.log(msgupdate)
     let ids = props.match.params.id;
     let editexam= exam.filter((file)=>file.questions_id===ids)[0]||[];
+     console.log(editexam.exam_name)
    // console.log(editexam)
     useEffect(() => {
         props.getQuestion()
@@ -20,6 +21,12 @@ function AddQuestion(props) {
       }, [])
 
     //const {getFieldDecorator}=props.form;
+    const info = () => {
+        if(msgupdate.code===0){
+            message.info("身份权限不足");
+        }
+        
+      };
     const [visible,setvisible]=useState(false)
     const showModal = () => {
           setvisible(true)
@@ -29,6 +36,7 @@ function AddQuestion(props) {
         props.setupdate().title({
             questions_id:ids
         })
+        info()
         setvisible(false)
     };
     
@@ -63,7 +71,7 @@ function AddQuestion(props) {
 
             <div className="themList">
                 <p>请选择考试类型：</p>
-                <Select defaultValue={editexam.exam_name&&editexam.exam_name} style={{ width: 120 }} >
+                <Select defaultValue={editexam.exam_name?editexam.exam_name:"周考一"} style={{ width: 120 }} >
                     {examtype&&examtype.map((item)=><Option value={item.exam_name} key={item.exam_id}>{item.exam_name}</Option>)}
                 </Select>
             </div>

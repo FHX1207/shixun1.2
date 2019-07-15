@@ -6,6 +6,8 @@ import Addquestion from "./questions/addquestions"
 import Details from "./questions/detail"
 import { Route } from "dva/router";
 import Editquestion from "./questions/editQuestion"
+
+
 const { Sider } = Layout;
 const { SubMenu } = Menu;
 const detail=(history,path)=>{
