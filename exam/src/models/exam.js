@@ -1,4 +1,4 @@
-import {exam,examType,subject,getQuestionsType,condition} from '../services/index'
+import {exam,examType,subject,getQuestionsType,condition,update} from '../services/index'
 import {getToken} from "../utils/index"
 import {routerRedux} from "dva/router"
 export default {
@@ -11,7 +11,8 @@ export default {
     examtype:[],
     subject:[],
     questions:[],
-    conditionterm:[]
+    conditionterm:[],
+    msgupdate:[]
   },
   //订阅
   subscriptions: {
@@ -70,11 +71,19 @@ export default {
       })
     },
     *term({payload},{call,put}){
-      console.log(payload)
       let list = yield call(condition,payload);
       console.log(list)
       yield put({
         type:"condition",
+        payload:list.data
+      })
+    },
+    *getupdate({payload},{call,put}){
+      console.log(payload)
+      let list = yield call(update,payload)
+      console.log(list)
+      yield put({
+        type:"setupdate",
         payload:list.data
       })
     }
@@ -97,6 +106,10 @@ export default {
     //按条件获取试题
     condition(state,action){
       return {...state,conditionterm:action.payload}
+    },
+    //修改试题
+    setupdate(state,action){
+      return {...state,msgupdate:action.payload}
     }
   },
 

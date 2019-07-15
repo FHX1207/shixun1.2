@@ -23,3 +23,7 @@ export function getQuestionsType(){
 export function condition(params){
     return request.get(`/exam/questions/condition?questions_type_id=${params.questions_type_id}&&exam_id=${params.exam_id}&&subject_id=${params.subject_id}`)
 }
+//更新试题
+export function update(params){
+    return request.put("/exam/questions/update",params)
+}

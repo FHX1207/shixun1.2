@@ -6,30 +6,35 @@ import { Input ,Form, Button,Select,Modal} from 'antd';
 
 const { Option} = Select;
 function AddQuestion(props) {
-    let {examtype,subject,questions,exam}=props;
+    let {examtype,subject,questions,exam,msgupdate}=props;
+    console.log(msgupdate)
     let ids = props.match.params.id;
-    let editexam= exam.filter((file)=>file.questions_id===ids)[0] ||[];
-   // console.log(editexam.exam_name)
+    let editexam= exam.filter((file)=>file.questions_id===ids)[0]||[];
+   // console.log(editexam)
     useEffect(() => {
         props.getQuestion()
         props.getQuestionTypes()
         props.getsubject()
         props.getExamType()
+        props.setupdate()
       }, [])
 
     //const {getFieldDecorator}=props.form;
-    let visible=false;
+    const [visible,setvisible]=useState(false)
     const showModal = () => {
-          visible=true
+          setvisible(true)
     };
-    const handleOk = e => {
-        console.log(e);
-        visible= false
+    const handleOk = (ids) => {
+        console.log("确定",ids);
+        props.setupdate().title({
+            questions_id:ids
+        })
+        setvisible(false)
     };
     
-    const handleCancel = e => {
-      console.log(e);
-        visible= false
+    const handleCancel = () => {
+      console.log("取消");
+      setvisible(false)
     };
 
    return (
@@ -58,7 +63,7 @@ function AddQuestion(props) {
 
             <div className="themList">
                 <p>请选择考试类型：</p>
-                <Select defaultValue={editexam.exam_name} style={{ width: 120 }} >
+                <Select defaultValue={editexam.exam_name&&editexam.exam_name} style={{ width: 120 }} >
                     {examtype&&examtype.map((item)=><Option value={item.exam_name} key={item.exam_id}>{item.exam_name}</Option>)}
                 </Select>
             </div>
@@ -78,14 +83,12 @@ function AddQuestion(props) {
             <Editor height='auto' value={editexam.questions_answer}/>
             <Button type="primary" htmlType="submit" onClick={()=>showModal()}>提交</Button>
             <Modal
-                title="Basic Modal"
+                title="是否保存更改？"
                 visible={visible}
-                onOk={()=>handleOk()}
+                onOk={()=>handleOk(editexam.exam_id)}
                 onCancel={()=>handleCancel()}
                 >
-                <p>Some contents...</p>
-                <p>Some contents...</p>
-                <p>Some contents...</p>
+                <p>确定要修改这道题吗？</p>
             </Modal>
         </div> 
     </Form>
@@ -122,6 +125,17 @@ const mapDispatchToProps=(dispatch)=>{
             dispatch({
                 type:"exam/subjecttype"
             })
+        },
+        //修改试题
+        setupdate:()=>{
+          return {
+              title:payload=>{
+                  dispatch({
+                      type:"exam/getupdate",
+                      payload
+                  })
+              }
+          }
         }
     }
 }
