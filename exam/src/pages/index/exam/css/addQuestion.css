@@ -1,0 +1,50 @@
+:global .addPage {
+  width: 1600px;
+  height: 100%;
+  background: #eee;
+  padding: 0 20px;
+  overflow-y: scroll;
+}
+
+:global .wrapper {
+  width: 100%;
+  height: 100%;
+}
+
+:global .rightList {
+  width: 100%;
+  flex: 1;
+}
+
+:global h4 {
+  padding: 15px;
+  font-size: 20px;
+}
+
+:global .mains {
+  width: 1500px;
+  background: #fff;
+  padding: 10px;
+}
+
+:global .themList {
+  padding: 20px;
+}
+
+:global .title {
+  padding: 15px;
+}
+
+:global .title span {
+  display: inline-block;
+  padding-left: 15px;
+}
+
+:global .inp {
+  width: 300px;
+}
+
+:global .btns {
+  margin-top: 15px;
+  background: lightskyblue;
+}
