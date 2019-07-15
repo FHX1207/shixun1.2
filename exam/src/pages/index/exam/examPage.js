@@ -6,7 +6,8 @@ import Addquestion from "./questions/addquestions"
 import Details from "./questions/detail"
 import { Route } from "dva/router";
 import Editquestion from "./questions/editQuestion"
-
+import Adduser from "./usemanage/adduser"
+import Showuser from "./usemanage/showuser"
 
 const { Sider } = Layout;
 const { SubMenu } = Menu;
@@ -48,8 +49,8 @@ function examPage(props){
                             </span>
                         }
                     >
-                        <Menu.Item key="4">添加用户</Menu.Item>
-                        <Menu.Item key="5">用户展示</Menu.Item>
+                        <Menu.Item key="4" onClick={()=>{detail(history,"/exam/adduser")}}>添加用户</Menu.Item>
+                        <Menu.Item key="5" onClick={()=>{detail(history,"/exam/showuser")}}>用户展示</Menu.Item>
                     </SubMenu>
                     <SubMenu
                         key="sub3"
@@ -95,6 +96,8 @@ function examPage(props){
                 <Route path="/exam/addquestion" component={Addquestion}></Route>
                 <Route path="/exam/details/:id" component={Details}></Route>
                 <Route path="/exam/editexam/:id" component={Editquestion}></Route>
+                <Route path="/exam/adduser" component={Adduser}></Route>
+                <Route path="/exam/showuser" component={Showuser}></Route>
             {/* </Layout> */}
           </Layout>
         </div>

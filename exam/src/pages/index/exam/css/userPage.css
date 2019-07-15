@@ -1,0 +1,41 @@
+:global h2 {
+  width: 100%;
+  line-height: 80px;
+}
+
+:global .adduser, :global .showuser {
+  width: 100%;
+  flex: 1;
+  overflow-y: scroll;
+  box-sizing: border-box;
+  padding: 0 20px;
+}
+
+:global .adduser .detail, :global .showuser .detail {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+:global .adduser .detail .userlist, :global .showuser .detail .userlist {
+  width: 33%;
+  height: auto;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  box-sizing: border-box;
+  padding: 10px;
+  margin-bottom: 5px;
+}
+
+:global .adduser .detail .userlist .useinp, :global .showuser .detail .userlist .useinp {
+  margin: 15px 0;
+}
+
+:global .adduser .detail .userlist .useinp input, :global .showuser .detail .userlist .useinp input {
+  margin: 10px 0;
+}
+
+:global .adduser .detail .userlist button, :global .showuser .detail .userlist button {
+  margin: 0 10px;
+}

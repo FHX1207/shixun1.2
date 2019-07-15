@@ -7,10 +7,8 @@ import { Input ,Form, Button,Select,Modal,message} from 'antd';
 const { Option} = Select;
 function AddQuestion(props) {
     let {examtype,subject,questions,exam,msgupdate}=props;
-     console.log(msgupdate)
     let ids = props.match.params.id;
     let editexam= exam.filter((file)=>file.questions_id===ids)[0]||[];
-     console.log(editexam.exam_name)
    // console.log(editexam)
     useEffect(() => {
         props.getQuestion()
