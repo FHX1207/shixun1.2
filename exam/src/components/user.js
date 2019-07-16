@@ -5,7 +5,6 @@ const User = (props) => {
     const { Option } = Select;
     const { getFieldDecorator } = props.form;
     let {listidentity,listuser,adduser} = props;
-   
     const [visible,setvisible]=useState("large")
     const Tabs=()=>{
         if(visible==="default"){
@@ -24,6 +23,7 @@ const User = (props) => {
                     user_pwduser_pwd: values.password,
                    })
                }
+               //服务器报500的错
             //    else if(visible==="default"){
             //        props.newupdateuser().title({
             //         user_id:
@@ -99,16 +99,16 @@ const mapDispatchToProps = dispatch => {
         }
       },
        //更新用户信息（用户名，用户密码，用户身份）
-      newupdateuser:()=>{
-        return {
-            title:payload=>{
-                dispatch({
-                    type:"user/newUpdate",
-                    payload
-                })
-            }
-        }
-      }
+    //   newupdateuser:()=>{
+    //     return {
+    //         title:payload=>{
+    //             dispatch({
+    //                 type:"user/newUpdate",
+    //                 payload
+    //             })
+    //         }
+    //     }
+    //   }
     }
 }
 export default connect(mapStateToProps,mapDispatchToProps)(Form.create()(User))

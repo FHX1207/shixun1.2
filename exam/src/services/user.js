@@ -27,3 +27,7 @@ export function adduser(params){
 export function newuser(params){
     return request.put("/user/user",params)
 }
+//添加身份
+export function identityedit(params){
+    return require.get("/user/identity/edit",params)
+}

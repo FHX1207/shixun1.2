@@ -3,7 +3,7 @@ import {connect} from "dva";
 import "../css/userPage.scss"
 import { Button, Radio,Input,Select,Form} from 'antd';
 import Party from "@/components/user.js"
-
+import Adduserist from "@/components/adduserlist"
 function adduser(props){
     const { Option } = Select;
     const { getFieldDecorator } = props.form;
@@ -19,7 +19,6 @@ function adduser(props){
         props.getidentity();
         props.getuserInfo();
         props.getuser();
-       
     },[])
     
  
@@ -28,23 +27,7 @@ function adduser(props){
             <h2>添加用户</h2>
             <div className="detail">
                 <Party/>
-               <div className="userlist">
-                  <Radio.Group value="large" >
-                    <Radio.Button value="large">添加身份</Radio.Button>
-                  </Radio.Group> 
-                  <Form className="useinp">
-                       <Form.Item>
-                            {getFieldDecorator('identity', {
-                                rules: [{ required: true, message: 'Please input your username!' }],
-                            })(
-                                <Input placeholder="请输入身份名称" />
-                            )}
-                       </Form.Item>
-                        <Button type="primary" style={{ width: 120 }}>确定</Button>
-                       <Button>重置</Button>
-                  </Form>
-                 
-               </div>
+                <Adduserist/>
                <div className="userlist">
                   <Radio.Group value="large">
                     <Radio.Button value="large">添加api接口权限</Radio.Button>
