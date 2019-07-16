@@ -1,4 +1,4 @@
-import {apiAuthority,viewAuthority,identity,userInfo,getuser,adduser} from '../services/index'
+import {apiAuthority,viewAuthority,identity,userInfo,getuser,adduser,newuser} from '../services/index'
 export default {
 //命名空间
     namespace: 'user',
@@ -9,7 +9,8 @@ export default {
        listidentity:[],
        listuserInfo:[],
        listuser:[],
-       adduser:[]
+       adduser:[],
+       newUser:[]
     },
 
 //异步操作
@@ -51,9 +52,16 @@ export default {
       },
       *addusers({payload},{call,put}){
           let list =yield call(adduser,payload)
-          console.log(list)
           yield put({
               type:"getadduser",
+              payload:list
+          })
+      },
+      *newUpdate({payload},{call,put}){
+          let list=yield call(newuser,payload)
+          console.log(list)
+          yield put({
+              type:"updateuser",
               payload:list
           })
       }
@@ -83,6 +91,10 @@ export default {
       //添加用户
       getadduser(state,action){
           return {...state,adduser:action.payload}
+      },
+      //更新用户信息（用户名，用户密码，用户身份）
+      updateuser(state,action){
+          return {...state,newUser:action.payload}
       }
     },
 

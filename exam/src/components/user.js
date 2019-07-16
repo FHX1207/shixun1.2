@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import {connect} from 'dva'
-import { Button, Radio,Input,Select,Form} from 'antd';
+import { Button, Radio,Input,Select,Form,message} from 'antd';
 const User = (props) => {
     const { Option } = Select;
     const { getFieldDecorator } = props.form;
-    let {listidentity,listuser} = props;
+    let {listidentity,listuser,adduser} = props;
+   
     const [visible,setvisible]=useState("large")
     const Tabs=()=>{
         if(visible==="default"){
@@ -16,9 +17,26 @@ const User = (props) => {
     let handleSubmit=()=>{
         props.form.validateFields((err, values) => {
             if (!err) {
-              console.log('Received values of form: ', values);
+               console.log(values)
+               if(visible==="large"){
+                    props.getadduser().title({
+                    user_name: values.username,
+                    user_pwduser_pwd: values.password,
+                   })
+               }
+            //    else if(visible==="default"){
+            //        props.newupdateuser().title({
+            //         user_id:
+            //        })
+            //    }
             }
           });
+          if(adduser.msg){
+            message.error(adduser.msg);
+          } 
+    }
+    let handleReset=()=>{
+        props.form.resetFields();
     }
   return (
     <div className="userlist">
@@ -54,8 +72,9 @@ const User = (props) => {
                 )}
             </Select>
             <br/>
+        
             <Button type="primary" style={{ width: 120,marginTop:20}} htmlType="submit">确定</Button>
-            <Button >重置</Button>
+            <Button onClick={()=>handleReset()}>重置</Button>
         </Form>            
     </div>
   );
@@ -68,7 +87,28 @@ const mapStateToProps = (state) => {
  }
 const mapDispatchToProps = dispatch => {
     return {
-
+        //添加用户
+      getadduser:()=>{
+        return {
+            title:payload=>{
+                dispatch({
+                    type:"user/addusers",
+                    payload
+                })
+            }
+        }
+      },
+       //更新用户信息（用户名，用户密码，用户身份）
+      newupdateuser:()=>{
+        return {
+            title:payload=>{
+                dispatch({
+                    type:"user/newUpdate",
+                    payload
+                })
+            }
+        }
+      }
     }
 }
 export default connect(mapStateToProps,mapDispatchToProps)(Form.create()(User))

@@ -19,7 +19,7 @@ function adduser(props){
         props.getidentity();
         props.getuserInfo();
         props.getuser();
-        props.getadduser();
+       
     },[])
     
  
@@ -168,17 +168,7 @@ const mapDispatchToProps = dispatch => {
               type:"user/users"
           })
       },
-      //添加用户
-      getadduser:()=>{
-        return {
-            title:payload=>{
-                dispatch({
-                    type:"user/addusers",
-                    payload
-                })
-            }
-        }
-      }
+      
     }
 }
 export default connect(mapStateToProps,mapDispatchToProps)(Form.create()(adduser))

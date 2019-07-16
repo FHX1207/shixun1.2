@@ -23,3 +23,7 @@ export function getuser(){
 export function adduser(params){
     return request.post("/user",params)
 }
+//更新用户信息（用户名，用户密码，用户身份）
+export function newuser(params){
+    return request.put("/user/user",params)
+}
