@@ -11,8 +11,7 @@ function adduser(props){
     //console.log(viewauth)
     //身份数据==listidentity
     //获取当前用户信息=====listuserInfo
-    //展示用户数据
-    console.log(listuser)
+    //展示用户数据===listuser
     useEffect(()=>{
         props.getapiauth();
         props.getviewauth();
