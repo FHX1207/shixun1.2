@@ -11,11 +11,11 @@ function AddQuestion(props) {
     let editexam= exam.filter((file)=>file.questions_id===ids)[0]||[];
    // console.log(editexam)
     useEffect(() => {
-        props.getQuestion()
-        props.getQuestionTypes()
-        props.getsubject()
-        props.getExamType()
-        props.setupdate()
+        props.getQuestion();
+        props.getQuestionTypes();
+        props.getsubject();
+        props.getExamType();
+        props.setupdate();
       }, [])
 
     //const {getFieldDecorator}=props.form;
@@ -53,13 +53,6 @@ function AddQuestion(props) {
                 <Form.Item>
                     <p>题干</p>
                     <Input value={editexam.title} placeholder="请输入题目标题，不超过20个字"/>
-                    {/* {getFieldDecorator('titleText', {
-                        rules: [{ required: true, message: '标题不能为空!' }],
-                        })(
-                        <Input
-                         placeholder={editexam.title}
-                        />,
-                    )} */}
                 </Form.Item>
             </div>
             <p>题目主题</p>

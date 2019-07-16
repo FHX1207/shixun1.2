@@ -3,7 +3,7 @@ import {connect} from 'dva'
 import Editor from 'for-editor'
 //import { Router, Route, Switch ,Redirect} from 'dva/router';
 import "../css/examPage.css"
-import { Input ,Form,Button, Select} from 'antd';
+import { Input ,Form,Button} from 'antd';
 
 
 //const { Option} = Select;
@@ -11,9 +11,9 @@ function AddQuestion(props) {
     console.log(props)
 
     useEffect(() => {
-        props.getQuestionTypes()
-        props.getsubject()
-        props.Allquestion()
+        props.getQuestionTypes();
+        props.getsubject();
+        props.Allquestion();
       }, [])
 
   const {getFieldDecorator}=props.form;
@@ -108,7 +108,6 @@ function AddQuestion(props) {
 }
 
 const mapStateToProps=(state)=>{
-    console.log(state)
     return {
         // ...state.power
         ...state.exam 

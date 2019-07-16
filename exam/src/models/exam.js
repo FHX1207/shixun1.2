@@ -50,21 +50,21 @@ export default {
         payload:data.data
       })
     },
-    *type({},{call,put}){
+    *type({payload},{call,put}){
       let list = yield call(examType);
       yield put({
         type:"examtype",
         payload:list.data
       })
     },
-    *subjecttype({},{call,put}){
+    *subjecttype({payload},{call,put}){
       let list = yield call(subject);
       yield put({
         type:"findsubject",
         payload:list.data
       })
     },
-    *questionsTypes({},{call,put}){
+    *questionsTypes({payload},{call,put}){
       let list = yield call(getQuestionsType);
       yield put({
         type:"questionsType",
@@ -73,16 +73,13 @@ export default {
     },
     *term({payload},{call,put}){
       let list = yield call(condition,payload);
-      console.log(list)
       yield put({
         type:"condition",
         payload:list.data
       })
     },
     *getupdate({payload},{call,put}){
-      console.log(payload)
       let list = yield call(update,payload)
-      console.log(list)
       yield put({
         type:"setupdate",
         payload:list

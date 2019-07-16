@@ -16,6 +16,7 @@
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
+  margin-bottom: 10px;
 }
 
 :global .adduser .detail .userlist, :global .showuser .detail .userlist {
@@ -29,10 +30,6 @@
 }
 
 :global .adduser .detail .userlist .useinp, :global .showuser .detail .userlist .useinp {
-  margin: 15px 0;
-}
-
-:global .adduser .detail .userlist .useinp input, :global .showuser .detail .userlist .useinp input {
   margin: 10px 0;
 }
 

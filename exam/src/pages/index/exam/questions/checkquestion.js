@@ -11,11 +11,11 @@ function checkquestion(props) {
         exam=conditionterm
     }
     useEffect(()=>{
-       props.getQuestion(),
-       props.getExamType(),
-       props.getsubject(),
-       props.getQuestionsType()
-       props.condition()
+       props.getQuestion();
+       props.getExamType();
+       props.getsubject();
+       props.getQuestionsType();
+       props.condition();
     },[])
         //考试类型：
     const [seleValue, setSeleValue] = useState("");
