@@ -1,4 +1,4 @@
-import {apiAuthority,viewAuthority,identity,userInfo,getuser} from '../services/index'
+import {apiAuthority,viewAuthority,identity,userInfo,getuser,adduser} from '../services/index'
 export default {
 //命名空间
     namespace: 'user',
@@ -8,7 +8,8 @@ export default {
        viewauth:[],
        listidentity:[],
        listuserInfo:[],
-       listuser:[]
+       listuser:[],
+       adduser:[]
     },
 
 //异步操作
@@ -43,10 +44,17 @@ export default {
       },
       *users({payload},{call,put}){
           let list = yield call(getuser)
-          console.log(list)
           yield put({
               type:"getusers",
               payload:list.data
+          })
+      },
+      *addusers({payload},{call,put}){
+          let list =yield call(adduser,payload)
+          console.log(list)
+          yield put({
+              type:"getadduser",
+              payload:list
           })
       }
     },
@@ -71,6 +79,10 @@ export default {
       //展示用户数据
       getusers(state,action){
           return {...state,listuser:action.payload}
+      },
+      //添加用户
+      getadduser(state,action){
+          return {...state,adduser:action.payload}
       }
     },
 

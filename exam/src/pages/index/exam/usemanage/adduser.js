@@ -2,13 +2,14 @@ import React, { useEffect,useState} from 'react'
 import {connect} from "dva";
 import "../css/userPage.scss"
 import { Button, Radio,Input,Select,Form} from 'antd';
-import { Tabs } from 'antd';
+import Party from "@/components/user.js"
 
 function adduser(props){
-    let {authority,viewauth,listidentity,listuserInfo,listuser} = props;
+    const { Option } = Select;
+    const { getFieldDecorator } = props.form;
+    let {authority,viewauth,listidentity} = props;
     //api接口权限数据===authority
-    //视图权限数据
-    //console.log(viewauth)
+    //视图权限数据===viewauth
     //身份数据==listidentity
     //获取当前用户信息=====listuserInfo
     //展示用户数据===listuser
@@ -17,74 +18,32 @@ function adduser(props){
         props.getviewauth();
         props.getidentity();
         props.getuserInfo();
-        props.getuser()
+        props.getuser();
+        props.getadduser();
     },[])
-    let flag=true;
-    const [visible,setvisible]=useState("large")
-    const Tabs=()=>{
-        flag=!flag;
-        if(flag){
-            setvisible("large")
-        }else{
-            setvisible("default")
-        }
-    }
-    const { Option } = Select;
-    const { getFieldDecorator } = props.form;
+    
+ 
     return (
         <div className="adduser">
             <h2>添加用户</h2>
             <div className="detail">
-               <div className="userlist">
-                <Radio.Group value={visible} onChange={()=>Tabs()}>
-                    <Radio.Button value="large">添加用户</Radio.Button>
-                    <Radio.Button value="default">更新用户</Radio.Button>
-                </Radio.Group> 
-                <Form  className="useinp">
-                   {visible==="large"?"":
-                        <Select defaultValue="请选择身份id" style={{ width: 180 }}>
-                                {listuser&&listuser.map(file=>
-                                    <Option value={file.user_name} key={file.user_id}>{file.user_name}</Option>
-                                )}
-                        </Select>}
-                    <Form.Item>
-                            {getFieldDecorator('username', {
-                                rules: [{ required: true, message: 'Please input your username!' }],
-                            })(
-                                <Input placeholder="请输入用户名"/>
-                            )}
-                    </Form.Item>
-                    <Form.Item>
-                            {getFieldDecorator('password', {
-                                rules: [{ required: true, message: 'Please input your password!' }],
-                            })(
-                                <Input type="password" placeholder="请输入密码" />
-                            )}
-                    </Form.Item>
-                    <Select defaultValue="请选择身份id" style={{ width: 180 }}>
-                        {listidentity&&listidentity.map(file=>
-                            <Option value={file.identity_text} key={file.identity_id}>{file.identity_text}</Option>
-                        )}
-                    </Select>
-                </Form> 
-                <Button type="primary" style={{ width: 120 }} >确定</Button>
-                <Button>重置</Button>
-               </div>
+                <Party/>
                <div className="userlist">
                   <Radio.Group value="large" >
                     <Radio.Button value="large">添加身份</Radio.Button>
                   </Radio.Group> 
                   <Form className="useinp">
                        <Form.Item>
-                            {getFieldDecorator('username2', {
+                            {getFieldDecorator('identity', {
                                 rules: [{ required: true, message: 'Please input your username!' }],
                             })(
                                 <Input placeholder="请输入身份名称" />
                             )}
                        </Form.Item>
+                        <Button type="primary" style={{ width: 120 }}>确定</Button>
+                       <Button>重置</Button>
                   </Form>
-                  <Button type="primary" style={{ width: 120 }}>确定</Button>
-                  <Button>重置</Button>
+                 
                </div>
                <div className="userlist">
                   <Radio.Group value="large">
@@ -156,7 +115,7 @@ function adduser(props){
                   <div className="useinp">
                      <Select defaultValue="请选择身份id" style={{ width: 180,marginBottom:20, }}>
                        {listidentity&&listidentity.map(file=>
-                                    <Option value={file.identity_text} key={file.identity_id}>{file.identity_text}</Option>
+                            <Option value={file.identity_text} key={file.identity_id}>{file.identity_text}</Option>
                         )}
                      </Select>
                      <Select defaultValue="请选择视图权限id" style={{ width: 180 }}>
@@ -208,6 +167,17 @@ const mapDispatchToProps = dispatch => {
           dispatch({
               type:"user/users"
           })
+      },
+      //添加用户
+      getadduser:()=>{
+        return {
+            title:payload=>{
+                dispatch({
+                    type:"user/addusers",
+                    payload
+                })
+            }
+        }
       }
     }
 }

@@ -19,3 +19,7 @@ export function userInfo(){
 export function getuser(){
     return request.get("/user/user")
 }
+//添加用户
+export function adduser(params){
+    return request.post("/user",params)
+}
