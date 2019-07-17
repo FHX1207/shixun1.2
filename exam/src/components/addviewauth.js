@@ -3,23 +3,25 @@
 */
 import React, { useEffect, useState } from 'react'
 import {connect} from 'dva'
-import { Button, Radio,Input,Form,message,Select,} from 'antd';
+import { Button, Radio,Form,message,Select,} from 'antd';
 const Addviewauth = (props) => {
     const { Option } = Select;
-    let {viewauth} = props;
+    let {viewauth,viewPower} = props;
+    //console.log(viewPower)
     useEffect(()=>{
         props.getviewauth();
+       // props.addviewPower();
     },[])
     const { getFieldDecorator } = props.form;
     let handleSubmit=()=>{
         props.form.validateFields((err, values) => {
             if (!err) {
-              props.getedit({identity_text:values.identity})
+              console.log(values)
+            //   props.addviewPower({
+            //     view_authority_text:values.view,
+            //      view_id:
+            //   })
             }
-
-          if(!err){
-            message.info("成功");
-          }
           });
          
     }
@@ -33,8 +35,8 @@ const Addviewauth = (props) => {
         </Radio.Group> 
         <Form className="useinp" onSubmit={()=>handleSubmit()}>
             <Form.Item>
-                {getFieldDecorator('password', {
-                        rules: [{ required: true, message: 'Please input your password!' }],
+                {getFieldDecorator('view', {
+                        rules: [{ required: true, message: '不可为空' }],
                     })(
                     <Select placeholder="请选择已有视图" style={{ width: 180 }}>
                         {viewauth&&viewauth.map(file=>
@@ -42,7 +44,7 @@ const Addviewauth = (props) => {
                      )}</Select>
                 )}
             </Form.Item> 
-            <Button type="primary" style={{ width: 120 }}>确定</Button>
+            <Button type="primary" style={{ width: 120 }}  htmlType="submit">确定</Button>
             <Button onClick={()=>handleReset()}>重置</Button>
         </Form>
     </div>
@@ -62,6 +64,12 @@ const mapDispatchToProps = dispatch => {
             type:"user/viewauth"
         })
       },
+      addviewPower:(payload)=>{
+          dispatch({
+              type:"user/addview",
+              payload
+          })
+      }
     }
 }
 export default connect(mapStateToProps,mapDispatchToProps)(Form.create()(Addviewauth))

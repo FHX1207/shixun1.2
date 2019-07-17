@@ -3,11 +3,12 @@ import {
     viewAuthority,
     identity,
     userInfo,
-    getuser,
-    adduser,
-    newuser,
-    identityedit,
-    addapipower
+    getUser,
+    addUser,
+    newUser,
+    identityEdit,
+    addApipower,
+    authorityView
 } from '../services/index'
 
 export default {
@@ -23,7 +24,8 @@ export default {
        adduser:[],
        newUser:[],
        editidentity:[],
-       addapiauth:[]
+       addapiauth:[],
+       viewPower:[]
     },
 
 //异步操作
@@ -57,31 +59,28 @@ export default {
           })
       },
       *users({payload},{call,put}){
-          let list = yield call(getuser)
+          let list = yield call(getUser)
           yield put({
               type:"getusers",
               payload:list.data
           })
       },
       *addusers({payload},{call,put}){
-          let list =yield call(adduser,payload)
+          let list =yield call(addUser,payload)
           yield put({
               type:"getadduser",
               payload:list
           })
       },
       *newUpdate({payload},{call,put}){
-          let list=yield call(newuser,payload)
-        //   console.log(list)
+          let list=yield call(newUser,payload)
           yield put({
               type:"updateuser",
               payload:list
           })
       },
       *addedit({payload},{call,put}){
-          console.log(payload)
-          let list= yield call(identityedit,payload)
-          console.log(list)
+          let list= yield call(identityEdit,payload)
           yield put({
               type:"addidentity",
               payload:list
@@ -89,10 +88,18 @@ export default {
       },
       *addapi({payload},{call,put}){
           console.log(payload)
-          let list = yield call(addapipower,payload)
+          let list = yield call(addApipower,payload)
           console.log(list)
           yield put({
-              type:"addapiedit",
+              type:"addapiEdit",
+              payload:list
+          })
+      },
+      *addview({payload},{call,put}){
+          console.log(payload)
+          let list = yield call(authorityView,payload)
+          yield put({
+              type:"addviewPower",
               payload:list
           })
       }
@@ -132,8 +139,12 @@ export default {
           return {...state,editidentity:action.payload}
       },
       //添加api接口权限
-      addapiedit(state,action){
+      addapiEdit(state,action){
           return {...state,addapiauth:action.payload}
+      },
+      //添加视图权限
+      addviewPower(state,action){
+         return {...state,viewPower:action.payload}
       }
     },
 

@@ -1,4 +1,4 @@
-import React, { useEffect,useState} from 'react'
+import React, { useEffect} from 'react'
 import {connect} from "dva";
 import "../css/userPage.scss"
 import { Form} from 'antd';
@@ -14,6 +14,7 @@ function adduser(props){
     //身份数据==listidentity
     //获取当前用户信息=====listuserInfo
     //展示用户数据===listuser
+
     useEffect(()=>{
         props.getapiauth();
         props.getviewauth();

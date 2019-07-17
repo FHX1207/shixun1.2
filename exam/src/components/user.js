@@ -7,7 +7,7 @@ import { Button, Radio,Input,Select,Form,message} from 'antd';
 const User = (props) => {
     const { Option } = Select;
     const { getFieldDecorator } = props.form;
-    let {listidentity,listuser,adduser} = props;
+    let {listidentity,listuser,adduser,newUser} = props;
     const [visible,setvisible]=useState("large")
     const Tabs=()=>{
         if(visible==="default"){
@@ -19,24 +19,27 @@ const User = (props) => {
     let handleSubmit=()=>{
         props.form.validateFields((err, values) => {
             if (!err) {
-            //    console.log(values)
                if(visible==="large"){
-                    props.getadduser().title({
+                    props.getadduser({
                     user_name: values.username,
                     user_pwduser_pwd: values.password,
                    })
                }
-               //服务器报500的错
-            //    else if(visible==="default"){
-            //        props.newupdateuser().title({
-            //         user_id:
-            //        })
-            //    }
+               else if(visible==="default"){
+                   props.newupdateuser({
+                        user_id:values.newuserid,
+                        user_name:values.username,
+                        user_pwd:values.userpassword,
+                        identity_id:values.newviewid
+                   })
+               }
             }
           });
-          if(adduser.msg){
-            message.error(adduser.msg);
-          } 
+          if(visible==="large"){
+            message.info(adduser.msg)
+          }else if(visible==="default"){
+            message.info(newUser.msg)
+          }
     }
     let handleReset=()=>{
         props.form.resetFields();
@@ -48,12 +51,19 @@ const User = (props) => {
             <Radio.Button value="default">更新用户</Radio.Button>
         </Radio.Group> 
         <Form  className="useinp" onSubmit={()=>handleSubmit()}>
-            {visible==="large"?"":
-                <Select defaultValue="请选择身份id" style={{ width: 180 }}>
+           {/* 更新用户 */}
+           {visible==="large"?"":
+             <Form.Item>
+                {getFieldDecorator('newuserid', {
+                        rules: [{ required: true, message: 'Please input your username!' }],
+                    })(
+                        <Select placeholder="请选择身份id" style={{ width: 180 }}>
                         {listuser&&listuser.map(file=>
-                            <Option value={file.user_name} key={file.user_id}>{file.user_name}</Option>
+                            <Option value={file.user_id} key={file.user_id}>{file.user_name}</Option>
                         )}
-                </Select>
+                       </Select>
+                    )}
+             </Form.Item>        
             }
             <Form.Item>
                     {getFieldDecorator('username', {
@@ -63,17 +73,24 @@ const User = (props) => {
                     )}
             </Form.Item>
             <Form.Item>
-                    {getFieldDecorator('password', {
+                    {getFieldDecorator('userpassword', {
                         rules: [{ required: true, message: 'Please input your password!' }],
                     })(
                         <Input type="password" placeholder="请输入密码" />
                     )}
             </Form.Item>
-            <Select defaultValue="请选择身份id" style={{ width: 180 }}>
+            <Form.Item>
+                {getFieldDecorator('newviewid', {
+                        rules: [{ required: true, message: 'Please input your username!' }],
+                    })(
+                <Select placeholder="请选择身份id" style={{ width: 180 }}>
                 {listidentity&&listidentity.map(file=>
-                    <Option value={file.identity_text} key={file.identity_id}>{file.identity_text}</Option>
+                    <Option value={file.identity_id} key={file.identity_id}>{file.identity_text}</Option>
                 )}
-            </Select>
+               </Select>
+                    )}
+            </Form.Item>
+            
             <br/>
         
             <Button type="primary" style={{ width: 120,marginTop:20}} htmlType="submit">确定</Button>
@@ -91,27 +108,19 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = dispatch => {
     return {
         //添加用户
-      getadduser:()=>{
-        return {
-            title:payload=>{
-                dispatch({
-                    type:"user/addusers",
-                    payload
-                })
-            }
-        }
+      getadduser:(payload)=>{
+            dispatch({
+                type:"user/addusers",
+                payload
+            })
       },
        //更新用户信息（用户名，用户密码，用户身份）
-    //   newupdateuser:()=>{
-    //     return {
-    //         title:payload=>{
-    //             dispatch({
-    //                 type:"user/newUpdate",
-    //                 payload
-    //             })
-    //         }
-    //     }
-    //   }
+      newupdateuser:(payload)=>{
+            dispatch({
+                type:"user/newUpdate",
+                payload
+            })
+      }
     }
 }
 export default connect(mapStateToProps,mapDispatchToProps)(Form.create()(User))

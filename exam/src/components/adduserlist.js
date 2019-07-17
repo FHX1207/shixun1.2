@@ -6,15 +6,15 @@ import {connect} from 'dva'
 import { Button, Radio,Input,Form,message} from 'antd';
 const Adduserlist = (props) => {
     const { getFieldDecorator } = props.form;
+    let {editidentity} = props
     let handleSubmit=()=>{
         props.form.validateFields((err, values) => {
             if (!err) {
               props.getedit({identity_text:values.identity})
             }
-
-          if(!err){
-            message.info("成功");
-          }
+            if(editidentity!==[]){
+              message.info(editidentity.msg)
+            }
           });
          
     }

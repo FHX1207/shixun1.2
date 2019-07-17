@@ -6,6 +6,7 @@ import {connect} from 'dva'
 import { Button, Radio,Input,Form,message} from 'antd';
 const Addapiauth = (props) => {
     const { getFieldDecorator } = props.form;
+    let {addapiauth} = props;
     let handleSubmit=()=>{
         props.form.validateFields((err, values) => {
            if(!err){
@@ -15,6 +16,9 @@ const Addapiauth = (props) => {
                 api_authority_url:values.apiurl,
                 api_authority_method:values.apiquest
                })
+           }
+           if(addapiauth){
+               message.info(addapiauth.msg)
            }
           });
          

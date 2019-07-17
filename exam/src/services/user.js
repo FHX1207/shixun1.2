@@ -16,22 +16,26 @@ export function userInfo(){
     return request.get("/user/userInfo")
 }
 //展示用户数据
-export function getuser(){
+export function getUser(){
     return request.get("/user/user")
 }
 //添加用户
-export function adduser(params){
+export function addUser(params){
     return request.post("/user",params)
 }
 //更新用户信息（用户名，用户密码，用户身份）
-export function newuser(params){
+export function newUser(params){
     return request.put("/user/user",params)
 }
 //添加身份
-export function identityedit(params){
-    return require.get("/user/identity/edit",{params})
+export function identityEdit(params){
+    return request.get("/user/identity/edit", {params})
 }
 //添加api接口权限
-export function addapipower(params){
-    return request.get("/user/authorityApi/edit",params)
+export function addApipower(params){
+    return request.get("/user/authorityApi/edit", {params})
+}
+//添加视图权限
+export function authorityView(params){
+    return request.get("/user/authorityView/edit", {params})
 }

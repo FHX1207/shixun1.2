@@ -6,8 +6,8 @@ import Addquestion from "./questions/addquestions"
 import Details from "./questions/detail"
 import { Route } from "dva/router";
 import Editquestion from "./questions/editQuestion"
-import Adduser from "./usemanage/adduser"
-import Showuser from "./usemanage/showuser"
+import Adduser from "./usemanage/addUser"
+import Showuser from "./usemanage/showUser"
 
 const { Sider } = Layout;
 const { SubMenu } = Menu;
