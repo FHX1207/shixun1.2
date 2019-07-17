@@ -1,4 +1,15 @@
-import {apiAuthority,viewAuthority,identity,userInfo,getuser,adduser,newuser,identityedit} from '../services/index'
+import {
+    apiAuthority,
+    viewAuthority,
+    identity,
+    userInfo,
+    getuser,
+    adduser,
+    newuser,
+    identityedit,
+    addapipower
+} from '../services/index'
+
 export default {
 //命名空间
     namespace: 'user',
@@ -11,7 +22,8 @@ export default {
        listuser:[],
        adduser:[],
        newUser:[],
-       editidentity:[]
+       editidentity:[],
+       addapiauth:[]
     },
 
 //异步操作
@@ -60,7 +72,7 @@ export default {
       },
       *newUpdate({payload},{call,put}){
           let list=yield call(newuser,payload)
-          console.log(list)
+        //   console.log(list)
           yield put({
               type:"updateuser",
               payload:list
@@ -72,6 +84,15 @@ export default {
           console.log(list)
           yield put({
               type:"addidentity",
+              payload:list
+          })
+      },
+      *addapi({payload},{call,put}){
+          console.log(payload)
+          let list = yield call(addapipower,payload)
+          console.log(list)
+          yield put({
+              type:"addapiedit",
               payload:list
           })
       }
@@ -109,6 +130,10 @@ export default {
       //添加身份
       addidentity(state,action){
           return {...state,editidentity:action.payload}
+      },
+      //添加api接口权限
+      addapiedit(state,action){
+          return {...state,addapiauth:action.payload}
       }
     },
 

@@ -29,5 +29,9 @@ export function newuser(params){
 }
 //添加身份
 export function identityedit(params){
-    return require.get("/user/identity/edit",params)
+    return require.get("/user/identity/edit",{params})
+}
+//添加api接口权限
+export function addapipower(params){
+    return request.get("/user/authorityApi/edit",params)
 }

@@ -5,6 +5,7 @@ import {Tag} from 'antd';
 function detail(props){
     let ids = props.match.params.id;
     let {exam} =props;
+    console.log(exam)
     useEffect(()=>{
         props.getQuestion()
      },[])

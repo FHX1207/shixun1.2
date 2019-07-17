@@ -1,3 +1,6 @@
+/**
+ * 添加身份
+*/
 import React, { useEffect, useState } from 'react'
 import {connect} from 'dva'
 import { Button, Radio,Input,Form,message} from 'antd';
@@ -6,16 +9,17 @@ const Adduserlist = (props) => {
     let handleSubmit=()=>{
         props.form.validateFields((err, values) => {
             if (!err) {
-               console.log(values.identity)
-               props.getedit().title({
-                 identity_text:values.identity
-               })
+              props.getedit({identity_text:values.identity})
             }
+
+          if(!err){
+            message.info("成功");
+          }
           });
-          console.log(props.editidentity)
-        //   if(props.editidentity){
-        //     message.info(props.editidentity.msg);
-        //   }
+         
+    }
+    let handleReset=()=>{
+        props.form.resetFields();
     }
   return (
     <div className="userlist">
@@ -31,7 +35,7 @@ const Adduserlist = (props) => {
                 )}
             </Form.Item>
             <Button type="primary" style={{ width: 120 }} htmlType="submit">确定</Button>
-            <Button>重置</Button>
+            <Button onClick={()=>handleReset()}>重置</Button>
         </Form>
                  
     </div>
@@ -45,15 +49,12 @@ const mapStateToProps = (state) => {
  }
 const mapDispatchToProps = dispatch => {
     return {
-        getedit:()=>{
-            return {
-                title:payload=>{
-                    dispatch({
-                        type:"user/addedit",
-                        payload
-                    })
-                }
-            }
+        //添加身份
+        getedit:(payload)=>{
+            dispatch({
+                type:"user/addedit",
+                payload
+            })
           },
     }
 }

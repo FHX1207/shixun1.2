@@ -1,13 +1,14 @@
 import React, { useEffect,useState} from 'react'
 import {connect} from "dva";
 import "../css/userPage.scss"
-import { Button, Radio,Input,Select,Form} from 'antd';
+import { Form} from 'antd';
 import Party from "@/components/user.js"
-import Adduserist from "@/components/adduserlist"
+import Adduserist from "@/components/adduserlist.js"
+import Addapiauth from "@/components/addapiauth.js"
+import Addviewauth from "@/components/addviewauth.js"
+import Setapiauth from "@/components/setapiauth.js"
+import Getuserview from "@/components/getuserview.js"
 function adduser(props){
-    const { Option } = Select;
-    const { getFieldDecorator } = props.form;
-    let {authority,viewauth,listidentity} = props;
     //api接口权限数据===authority
     //视图权限数据===viewauth
     //身份数据==listidentity
@@ -21,95 +22,16 @@ function adduser(props){
         props.getuser();
     },[])
     
- 
     return (
         <div className="adduser">
             <h2>添加用户</h2>
             <div className="detail">
                 <Party/>
                 <Adduserist/>
-               <div className="userlist">
-                  <Radio.Group value="large">
-                    <Radio.Button value="large">添加api接口权限</Radio.Button>
-                  </Radio.Group> 
-                  <Form className="useinp">
-                       <Form.Item>
-                            {getFieldDecorator('username3', {
-                                rules: [{ required: true, message: '不可为空' }],
-                            })(
-                                <Input placeholder="请输入api接口权限名称" />
-                            )}
-                       </Form.Item>
-                       <Form.Item>
-                            {getFieldDecorator('username4', {
-                                rules: [{ required: true, message: '不可为空' }],
-                            })(
-                                <Input placeholder="请输入api接口权限url" />
-                            )}
-                       </Form.Item>
-                       <Form.Item>
-                            {getFieldDecorator('username5', {
-                                rules: [{ required: true, message: '不可为空' }],
-                            })(
-                                <Input placeholder="请输入api接口权限方法" />
-                            )}
-                       </Form.Item>
-                  </Form>
-                  <Button type="primary" style={{ width: 120 }}>确定</Button>
-                  <Button>重置</Button>
-               </div>
-               <div className="userlist">
-                  <Radio.Group value="large">
-                    <Radio.Button value="large">添加视图接口权限</Radio.Button>
-                  </Radio.Group> 
-                  <div className="useinp">
-                     <Select defaultValue="请选择已有视图" style={{ width: 180 }}>
-                      {viewauth&&viewauth.map(file=>
-                          <Option value={file.view_authority_text} key={file.view_authority_id}>{file.view_authority_text}</Option>
-                        )}
-                     </Select>
-                  </div> 
-                  <Button type="primary" style={{ width: 120 }}>确定</Button>
-                  <Button>重置</Button>
-               </div>
-               <div className="userlist">
-                  <Radio.Group value="large" >
-                    <Radio.Button value="large">给身份设置api接口权限</Radio.Button>
-                  </Radio.Group> 
-                  <div className="useinp">
-                     <Select defaultValue="请选择身份id" style={{ width: 180,marginBottom:20, }}>
-                       {listidentity&&listidentity.map(file=>
-                                    <Option value={file.identity_text} key={file.identity_id}>{file.identity_text}</Option>
-                        )}
-                     </Select>
-                     <Select defaultValue="请选择api接口权限" style={{ width: 180 }}>
-                        {authority&&authority.map(file=>
-                             <Option value={file.api_authority_text} key={file.api_authority_id}>{file.api_authority_text}</Option>
-                            )}
-                     </Select>
-                  </div> 
-                  <Button type="primary" style={{ width: 120 }}>确定</Button>
-                  <Button>重置</Button>
-               </div>
-               <div className="userlist">
-                  <Radio.Group value="large">
-                    <Radio.Button value="large">给身份设置视图权限</Radio.Button>
-                  </Radio.Group> 
-                  <div className="useinp">
-                     <Select defaultValue="请选择身份id" style={{ width: 180,marginBottom:20, }}>
-                       {listidentity&&listidentity.map(file=>
-                            <Option value={file.identity_text} key={file.identity_id}>{file.identity_text}</Option>
-                        )}
-                     </Select>
-                     <Select defaultValue="请选择视图权限id" style={{ width: 180 }}>
-                       {viewauth&&viewauth.map(file=>
-                          <Option value={file.view_authority_text} key={file.view_authority_id}>{file.view_authority_text}</Option>
-                        )}
-                     </Select>
-                  </div> 
-                  <Button type="primary" style={{ width: 120 }}>确定</Button>
-                  <Button>重置</Button>
-               </div>
+                <Addapiauth/>
+                <Addviewauth/>
+                <Setapiauth/>
+                <Getuserview/>
             </div>
         </div>
     )
