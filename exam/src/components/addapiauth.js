@@ -7,6 +7,7 @@ import { Button, Radio,Input,Form,message} from 'antd';
 const Addapiauth = (props) => {
     const { getFieldDecorator } = props.form;
     let {addapiauth} = props;
+    let num = Object.keys(addapiauth).length;
     let handleSubmit=()=>{
         props.form.validateFields((err, values) => {
            if(!err){
@@ -16,7 +17,7 @@ const Addapiauth = (props) => {
                 api_authority_method:values.apiquest
                })
            }
-           if(addapiauth){
+           if(num>0){
                message.info(addapiauth.msg)
            }
           });

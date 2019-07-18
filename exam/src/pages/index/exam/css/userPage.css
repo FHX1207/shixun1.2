@@ -26,6 +26,7 @@
   border-radius: 10px;
   box-sizing: border-box;
   padding: 10px;
+  margin-bottom: 5px;
 }
 
 :global .adduser .detail .userlist button, :global .showuser .detail .userlist button {

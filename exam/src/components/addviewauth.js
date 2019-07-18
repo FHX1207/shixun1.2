@@ -7,6 +7,7 @@ import { Button, Radio,Form,message,Select,} from 'antd';
 const Addviewauth = (props) => {
     const { Option } = Select;
     let {viewauth,viewPower} = props;
+    let num = Object.keys(viewPower).length;
     useEffect(()=>{
         props.getviewauth();
     },[])
@@ -19,7 +20,7 @@ const Addviewauth = (props) => {
                 view_authority_text:val[0].view_authority_text,
                  view_id:val[0].view_id
               })
-             if(viewPower){
+             if(num>0){
                  message.info(viewPower.msg)
              }
             }

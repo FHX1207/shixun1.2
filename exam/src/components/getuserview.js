@@ -6,6 +6,7 @@ import {connect} from 'dva'
 import { Button, Radio,Form,message,Select,} from 'antd';
 const Getuserview = (props) => {
     let {viewauth,listidentity,statusView} = props;
+    let num = Object.keys(statusView).length;
     useEffect(()=>{
         props.getviewauth();
         props.getidentity();
@@ -20,7 +21,7 @@ const Getuserview = (props) => {
                 identity_id:values.rules,
                 view_authority_id:values.password
               })
-              if(statusView){
+              if(num>0){
                   message.info(statusView.msg)
               }
             }

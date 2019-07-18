@@ -7,6 +7,7 @@ import { Button, Radio,Form,Select,message} from 'antd';
 const Setapiauth = (props) => {
     const { Option } = Select;
     let {authority,listidentity,Jurisdiction} = props;
+    let num = Object.keys(Jurisdiction).length;
     useEffect(()=>{
         props.getapiauth();
         props.getidentity();
@@ -21,7 +22,7 @@ const Setapiauth = (props) => {
                 identity_id:list[0].identity_id ,
                 api_authority_id:apiAuthority[0].api_authority_id ,
               })
-              if(Jurisdiction){
+              if(num>0){
                   message.info(Jurisdiction.msg)
               }
             }

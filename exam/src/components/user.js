@@ -8,6 +8,8 @@ const User = (props) => {
     const { Option } = Select;
     const { getFieldDecorator } = props.form;
     let {listidentity,listuser,addUser,newUser} = props;
+    let num1 = Object.keys(addUser).length;
+    let num2 = Object.keys(newUser).length;
     const [visible,setvisible]=useState("large")
     const Tabs=()=>{
         if(visible==="default"){
@@ -35,9 +37,9 @@ const User = (props) => {
                }
             }
           });
-          if(visible==="large"){
+          if(visible==="large" && num1>0){
             message.info(addUser.msg)
-          }else if(visible==="default"){
+          }else if(visible==="default" && num2 >0){
             message.info(newUser.msg)
           }
     }

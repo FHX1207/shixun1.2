@@ -6,17 +6,17 @@ import {connect} from 'dva'
 import { Button, Radio,Input,Form,message} from 'antd';
 const Adduserlist = (props) => {
     const { getFieldDecorator } = props.form;
-    let {editidentity} = props
+    let {editidentity} = props;
+    let num = Object.keys(editidentity).length;
     let handleSubmit=()=>{
         props.form.validateFields((err, values) => {
             if (!err) {
               props.getedit({identity_text:values.identity})
             }
-            if(editidentity!==[]){
+            if(num>0){
               message.info(editidentity.msg)
             }
           });
-         
     }
     let handleReset=()=>{
         props.form.resetFields();

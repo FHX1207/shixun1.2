@@ -20,31 +20,15 @@ export default {
     setup({ dispatch, history }) {  // eslint-disable-line
       //  console.log("dispatch...",dispatch)
       //  console.log("history",history)
-      return history.listen(({pathname})=>{
-        //判断去的页面是否是登录页
-          if(pathname.indexOf("/login")===-1){
-            //判断是否有登录态  
-            if(!getToken()){
-              //没有登陆态
-              dispatch(routerRedux.replace({
-                pathname:`/login`,
-                search:`?redirect=${encodeURIComponent(pathname)}`
-              }))
-            }
-          }else{
-            //是登录页
-            if(getToken()){
-              dispatch(routerRedux.replace({pathname:"/exam"}))
-            }
-          }
-      })
+      return {
+
+      }
     },
   },
   // 异步操作
   effects: {
     *exam({payload},{call,put}){
       let data= yield call(exam);
-      //console.log("exam...",data)
       yield put({
         type:"findexam",
         payload:data.data
