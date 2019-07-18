@@ -17,7 +17,7 @@ function checkquestion(props) {
        props.getQuestionsType();
        props.condition();
     },[])
-        //考试类型：
+    //考试类型：
     const [seleValue, setSeleValue] = useState("");
     //题目类型
     const [seleTypeValue, setseleTypeValue] = useState("");
@@ -39,7 +39,7 @@ function checkquestion(props) {
  
   //点击按钮
     let findquestion=()=>{
-        props.condition().title({
+        props.condition({
             questions_type_id: seleTypeValue,
             exam_id: seleValue,
             subject_id: typeData
@@ -132,15 +132,11 @@ const mapDispatchToProps = dispatch => {
           })
       },
       //按条件获取试题
-      condition:()=>{
-        return {
-            title:payload=>{
-                dispatch({
-                    type:"exam/term",
-                    payload
-                })
-            }
-        }
+      condition:(payload)=>{
+        dispatch({
+            type:"exam/term",
+            payload
+        })
       }
     }
 }

@@ -7,7 +7,7 @@ import { Button, Radio,Input,Select,Form,message} from 'antd';
 const User = (props) => {
     const { Option } = Select;
     const { getFieldDecorator } = props.form;
-    let {listidentity,listuser,adduser,newUser} = props;
+    let {listidentity,listuser,addUser,newUser} = props;
     const [visible,setvisible]=useState("large")
     const Tabs=()=>{
         if(visible==="default"){
@@ -36,7 +36,7 @@ const User = (props) => {
             }
           });
           if(visible==="large"){
-            message.info(adduser.msg)
+            message.info(addUser.msg)
           }else if(visible==="default"){
             message.info(newUser.msg)
           }

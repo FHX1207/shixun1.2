@@ -26,11 +26,6 @@
   border-radius: 10px;
   box-sizing: border-box;
   padding: 10px;
-  margin-bottom: 5px;
-}
-
-:global .adduser .detail .userlist .useinp, :global .showuser .detail .userlist .useinp {
-  margin: 10px 0;
 }
 
 :global .adduser .detail .userlist button, :global .showuser .detail .userlist button {

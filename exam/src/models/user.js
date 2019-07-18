@@ -64,6 +64,7 @@ export default {
       },
       *users({payload},{call,put}){
           let list = yield call(getUser)
+          console.log(list)
           yield put({
               type:"getusers",
               payload:list.data
@@ -112,7 +113,6 @@ export default {
           })
       },
       *setStatusView({payload},{call,put}){
-        console.log(payload)
         let list = yield call( setIdentityView,payload)
         yield put({
             type:"setViewPowr",
