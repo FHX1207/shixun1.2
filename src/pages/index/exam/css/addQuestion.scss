@@ -1,0 +1,56 @@
+:global{
+    .addPage{
+        width: 1600px;
+        height: 100%;
+        background: #eee;
+        padding: 0 20px;
+        overflow-y: scroll;
+    }
+    .wrapper{
+        width:100%;
+        height: 100%;
+        
+      }
+      .rightList{
+        width: 100%;
+        flex: 1;
+       
+      }
+    h4{
+        padding: 15px;
+        font-size: 20px;
+    }
+    .mains{
+        width: 1500px;
+        background: #fff;
+        padding: 10px;
+    }
+    .themList{
+        padding: 20px;
+    }
+    .title{
+        padding: 15px;
+    }
+    .title span{
+        display: inline-block;
+        padding-left: 15px;
+    }
+    .inp{
+        width: 300px;
+    }
+    .btns{
+        margin-top: 15px;
+        background: lightskyblue;
+    }
+    .loading{
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+}
+
