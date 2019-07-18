@@ -8,7 +8,9 @@ import {
     newUser,
     identityEdit,
     addApipower,
-    authorityView
+    authorityView,
+    setIdentityApi,
+    setIdentityView
 } from '../services/index'
 
 export default {
@@ -21,11 +23,13 @@ export default {
        listidentity:[],
        listuserInfo:[],
        listuser:[],
-       adduser:[],
+       addUser:[],
        newUser:[],
        editidentity:[],
        addapiauth:[],
-       viewPower:[]
+       viewPower:[],
+       Jurisdiction:[],
+       statusView:[]
     },
 
 //异步操作
@@ -87,21 +91,33 @@ export default {
           })
       },
       *addapi({payload},{call,put}){
-          console.log(payload)
           let list = yield call(addApipower,payload)
-          console.log(list)
           yield put({
               type:"addapiEdit",
               payload:list
           })
       },
       *addview({payload},{call,put}){
-          console.log(payload)
           let list = yield call(authorityView,payload)
           yield put({
               type:"addviewPower",
               payload:list
           })
+      },
+      *apiJurisdiction({payload},{call,put}){
+          let list = yield call( setIdentityApi,payload)
+          yield put({
+              type:"apiPower",
+              payload:list
+          })
+      },
+      *setStatusView({payload},{call,put}){
+        console.log(payload)
+        let list = yield call( setIdentityView,payload)
+        yield put({
+            type:"setViewPowr",
+            payload:list
+        })
       }
     },
 //同步操作
@@ -128,7 +144,7 @@ export default {
       },
       //添加用户
       getadduser(state,action){
-          return {...state,adduser:action.payload}
+          return {...state,addUser:action.payload}
       },
       //更新用户信息（用户名，用户密码，用户身份）
       updateuser(state,action){
@@ -145,6 +161,14 @@ export default {
       //添加视图权限
       addviewPower(state,action){
          return {...state,viewPower:action.payload}
+      },
+      //给身份设定api接口权限
+      apiPower(state,action){
+          return {...state,Jurisdiction:action.payload}
+      },
+      //给身份设定视图权限
+      setViewPowr(state,action){
+          return {...state,statusView:action.payload}
       }
     },
 

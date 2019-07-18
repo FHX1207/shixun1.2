@@ -1,7 +1,7 @@
 /**
  * 添加用户 更新用户
  */
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import {connect} from 'dva'
 import { Button, Radio,Input,Select,Form,message} from 'antd';
 const User = (props) => {

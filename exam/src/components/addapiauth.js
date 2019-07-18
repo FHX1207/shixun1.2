@@ -1,7 +1,7 @@
 /**
  * 添加api接口权限
  */
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import {connect} from 'dva'
 import { Button, Radio,Input,Form,message} from 'antd';
 const Addapiauth = (props) => {
@@ -10,7 +10,6 @@ const Addapiauth = (props) => {
     let handleSubmit=()=>{
         props.form.validateFields((err, values) => {
            if(!err){
-               console.log(values)
                props.addapiedit({
                 api_authority_text:values.apiname,
                 api_authority_url:values.apiurl,

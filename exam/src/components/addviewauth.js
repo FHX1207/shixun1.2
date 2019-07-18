@@ -1,26 +1,27 @@
 /**
  * 添加视图接口权限
 */
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import {connect} from 'dva'
 import { Button, Radio,Form,message,Select,} from 'antd';
 const Addviewauth = (props) => {
     const { Option } = Select;
     let {viewauth,viewPower} = props;
-    //console.log(viewPower)
     useEffect(()=>{
         props.getviewauth();
-       // props.addviewPower();
     },[])
     const { getFieldDecorator } = props.form;
     let handleSubmit=()=>{
         props.form.validateFields((err, values) => {
             if (!err) {
-              console.log(values)
-            //   props.addviewPower({
-            //     view_authority_text:values.view,
-            //      view_id:
-            //   })
+             let val= viewauth.filter(file=>file.view_authority_id===values.view);
+              props.addviewPower({
+                view_authority_text:val[0].view_authority_text,
+                 view_id:val[0].view_id
+              })
+             if(viewPower){
+                 message.info(viewPower.msg)
+             }
             }
           });
          
@@ -64,6 +65,7 @@ const mapDispatchToProps = dispatch => {
             type:"user/viewauth"
         })
       },
+      //添加视图权限
       addviewPower:(payload)=>{
           dispatch({
               type:"user/addview",

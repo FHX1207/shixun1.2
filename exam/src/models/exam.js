@@ -44,7 +44,7 @@ export default {
   effects: {
     *exam({payload},{call,put}){
       let data= yield call(exam);
-      console.log("exam...",data)
+      //console.log("exam...",data)
       yield put({
         type:"findexam",
         payload:data.data

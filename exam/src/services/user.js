@@ -21,11 +21,11 @@ export function getUser(){
 }
 //添加用户
 export function addUser(params){
-    return request.post("/user",params)
+    return request.post("/user", params)
 }
 //更新用户信息（用户名，用户密码，用户身份）
 export function newUser(params){
-    return request.put("/user/user",params)
+    return request.put("/user/user", params)
 }
 //添加身份
 export function identityEdit(params){
@@ -38,4 +38,12 @@ export function addApipower(params){
 //添加视图权限
 export function authorityView(params){
     return request.get("/user/authorityView/edit", {params})
+}
+//给身份设定api接口权限
+export function setIdentityApi(params){
+    return request.post("/user/setIdentityApi", params)
+}
+//给身份设定视图权限
+export function setIdentityView(params){
+    return request.post("/user/setIdentityView", params)
 }

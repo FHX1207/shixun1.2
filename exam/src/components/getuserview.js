@@ -1,11 +1,11 @@
 /**
  * 给身份设置视图权限
 */
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import {connect} from 'dva'
-import { Button, Radio,Input,Form,message,Select,} from 'antd';
+import { Button, Radio,Form,message,Select,} from 'antd';
 const Getuserview = (props) => {
-    let {viewauth,listidentity} = props;
+    let {viewauth,listidentity,statusView} = props;
     useEffect(()=>{
         props.getviewauth();
         props.getidentity();
@@ -16,11 +16,14 @@ const Getuserview = (props) => {
     let handleSubmit=()=>{
         props.form.validateFields((err, values) => {
             if (!err) {
-              props.getedit({identity_text:values.identity})
+              props.setViewPowr({
+                identity_id:values.rules,
+                view_authority_id:values.password
+              })
+              if(statusView){
+                  message.info(statusView.msg)
+              }
             }
-          if(!err){
-            message.info("成功");
-          }
           });
     }
     let handleReset=()=>{
@@ -55,7 +58,7 @@ const Getuserview = (props) => {
         )} 
            
        </Form.Item>
-        <Button type="primary" style={{ width: 120 }}>确定</Button>
+        <Button type="primary" style={{ width: 120 }} htmlType="submit">确定</Button>
         <Button onClick={()=>handleReset()}>重置</Button>
     </Form>
  </div>
@@ -80,7 +83,14 @@ const mapDispatchToProps = dispatch => {
         dispatch({
             type:"user/identity"
         })
-    },
+      },
+      //给身份设置视图权限
+      setViewPowr:(payload)=>{
+          dispatch({
+              type:"user/setStatusView",
+              payload
+          })
+      }
     }
 }
 export default connect(mapStateToProps,mapDispatchToProps)(Form.create()(Getuserview))

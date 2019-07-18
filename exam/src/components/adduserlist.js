@@ -1,7 +1,7 @@
 /**
  * 添加身份
 */
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import {connect} from 'dva'
 import { Button, Radio,Input,Form,message} from 'antd';
 const Adduserlist = (props) => {
