@@ -21,7 +21,6 @@ export default {
        authority:[],
        viewauth:[],
        listidentity:[],
-       listuserInfo:[],
        listuser:[],
        addUser:[],
        newUser:[],
@@ -55,13 +54,7 @@ export default {
               payload:list.data
           })
       },
-      *userInfo({payload},{call,put}){
-          let list= yield call(userInfo)
-          yield put({
-              type:"getuserInfo",
-              payload:list.data
-          })
-      },
+     
       *users({payload},{call,put}){
           let list = yield call(getUser)
           console.log(list)
@@ -134,10 +127,7 @@ export default {
       getidentity(state,action){
           return {...state,listidentity:action.payload}
       },
-      //获取当前用户信息
-      getuserInfo(state,action){
-          return {...state,listuserInfo:action.payload}
-      },
+      
       //展示用户数据
       getusers(state,action){
           return {...state,listuser:action.payload}

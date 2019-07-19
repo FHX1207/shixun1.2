@@ -1,4 +1,4 @@
-import {login} from '../services/index'
+import {login,userInfo} from '../services/index'
 import {setToken,getToken} from "../utils/index"
 import {routerRedux} from "dva/router"
 export default {
@@ -7,7 +7,8 @@ export default {
 
   // 模块的状态
   state: {
-    isLogin: -1
+    isLogin: -1,
+    listuserInfo:[]
   },
   //订阅
   subscriptions: {
@@ -31,6 +32,11 @@ export default {
               dispatch(routerRedux.replace({pathname:"/exam"}))
             }
           }
+          if(getToken()){
+            dispatch({
+              type: "login/userInfo"
+            });
+          }
       })
     },
   },
@@ -49,14 +55,24 @@ export default {
         payload: data.code
       })
     },
-   
+    *userInfo({payload},{call,put}){
+      let list= yield call(userInfo)
+      yield put({
+          type:"getuserInfo",
+          payload:list.data
+      })
+  },
   },
 
   // 同步操作
   reducers: {
     updateLogin(state, action) {
       return { ...state, isLogin: action.payload };
-    }
+    },
+    //获取当前用户信息
+    getuserInfo(state,action){
+      return {...state,listuserInfo:action.payload}
+  },
   },
 
 };
