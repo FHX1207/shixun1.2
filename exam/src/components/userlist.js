@@ -3,24 +3,28 @@ import {connect} from "dva";
 import { Menu, Dropdown, Icon,Avatar, Modal, Button ,Upload,message} from 'antd';
 import axios from "axios"
 function userList(props){
-    let images="https://cdn.nlark.com/yuque/0/2019/png/anonymous/1547609339813-e4e49227-157c-452d-be7e-408ca8654ffe.png?x-oss-process=image/resize,m_fill,w_48,h_48/format,png";
-    let { userMessage } = props;
-    //console.log( userMessage )
+     let { userMessage, newUser} = props;
+  
     let [flag,setflag]=useState(false)
-    let [newimg,setimg]=useState(images)
+    let [newimg,setimg]=useState(userMessage.avatar)
     function showModal(){
        setflag(true)
     }
     function change(e){
         let form = new FormData();
-         console.log(e.nativeEvent)
+       
+        //  console.log(e.nativeEvent)
         form.append(e.nativeEvent.target.files[0].name,e.nativeEvent.target.files[0]);
         axios.post("http://123.206.55.50:11000/upload",form).then(res=>{
-            console.log(res.data)
+            // console.log(res.data)
              if(res.data.code===1){
-                 console.log(res.data.data[0].path)
+                //  console.log(res.data.data[0].path)
                  message.success(res.data.msg)
                  setimg(res.data.data[0].path)
+                 props.updateuser({
+                    user_id:userMessage.user_id,
+                    avatar:res.data.data[0].path
+                 })
              }
           }  
         )
@@ -68,7 +72,7 @@ function userList(props){
            <div>
             <Dropdown overlay={menu}>
                 <span className="ant-dropdown-link" >
-                <Avatar src={newimg} ></Avatar> {userMessage.user_name} <Icon type="down" />
+                <Avatar src={userMessage.avatar} ></Avatar> {userMessage.user_name} <Icon type="down" />
                 </span>
             </Dropdown>
            </div>
@@ -98,11 +102,18 @@ const mapStateToProps = (state) => {
    // console.log("state...",state)
     return { 
         userMessage : state.login.listuserInfo,
+        ...state.user 
     }
  }
 const mapDispatchToProps = dispatch => {
     return {
-     
+        updateuser:(payload)=>{
+            dispatch({
+                 type:"user/newUpdate",
+                 payload
+            })
+           
+        }
     }
 }
 export default connect(mapStateToProps,mapDispatchToProps)(userList)  
