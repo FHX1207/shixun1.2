@@ -12,13 +12,10 @@ function userList(props){
     }
     function change(e){
         let form = new FormData();
-       
         //  console.log(e.nativeEvent)
         form.append(e.nativeEvent.target.files[0].name,e.nativeEvent.target.files[0]);
         axios.post("http://123.206.55.50:11000/upload",form).then(res=>{
-            // console.log(res.data)
              if(res.data.code===1){
-                //  console.log(res.data.data[0].path)
                  message.success(res.data.msg)
                  setimg(res.data.data[0].path)
                  props.updateuser({

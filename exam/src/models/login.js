@@ -55,7 +55,11 @@ export default {
         payload: data.code
       })
     },
-    *userInfo({payload},{call,put}){
+    *userInfo({payload},{call,put,select}){
+      let listuset = yield select(state => state.login.listuserInfo)
+      if(Object.keys(listuset).length){
+        return
+      }
       let list= yield call(userInfo)
       yield put({
           type:"getuserInfo",
