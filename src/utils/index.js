@@ -1,18 +1,21 @@
-import Cookies from 'js-cookie'
-const key ="preservation"
-//设置cookie ,过期时间为十个小时
-export function setToken(val){
-  // console.log(val)
-  let date = new Date();//当前时间
-  let period = date.getTime()+10*60*60*1000;//十小时后的时间戳
-  date.setTime(period)
-  Cookies.set(key,val,{period:date})
+import Cookie from "js-cookie";
+
+let key="authorization";
+export function setCookie(value){
+  
+    let date=new Date();
+    let expries=date.getTime()+10*60*60*1000;
+    date.setTime(expries)
+    Cookie.set(key,value,{expires:date})
+
+
 }
-//读取cookie
-export function getToken(){
-  return Cookies.get(key)
+
+export function getCookie(){
+    return Cookie.get(key);
+
 }
-//删除cookie
-export function removeToken(){
-  Cookies.remove(key)
+
+export function removeCookie(){
+  return  Cookie.remove(key);
 }

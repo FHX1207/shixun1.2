@@ -1,36 +1,31 @@
 import dva from 'dva';
+import createLoading from "dva-loading";  
 import './index.css';
-import 'antd/dist/antd.css';
-import {message} from 'antd';
-import createLoading from 'dva-loading';
-// import {createLogger} from 'redux-logger';
-
+// import 'antd/dist/antd.css';
 // 1. Initialize
-
-const app = dva(createLoading());
+const app = dva();
+// app.use(createLoading())
 
 // 2. Plugins
-app.use({
-    // onActions:createLogger(),
-    onError:(e)=>{
-        message.error(e.message);
-    }
-})
+// app.use({});
 
 // 3. Model
- app.model(require('./models/login').default);
- app.model(require('./models/exam').default);
- app.model(require('./models/addText').default);
- app.model(require('./models/addExam').default);
- app.model(require('./models/paper').default);
+app.model(require('./models/login.module').default);
+app.model(require('./models/questionClass.module').default);
 
+app.model(require('./models/userManage.module').default);
+
+app.model(require("./models/addUser/userAllData.module").default)
+app.model(require('./models/GradeManage.module').default);
+app.model(require('./models/ClassManage.module').default);
+app.model(require('./models/ExamList.module').default);
+app.model(require('./models/global').default);
+
+app.model(require('./models/lookCheck.module').default);
+app.model(require('./models/manageStudent.model').default);
+app.model(require('./models/AwaitClass.module').default);
 // 4. Router
 app.router(require('./router').default);
 
 // 5. Start
 app.start('#root');
-
-
-
-
-
